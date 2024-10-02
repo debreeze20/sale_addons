@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_material_film_info,access.material.film.info,model_material_film_info,base.group_user,1,1,1,0
+access_material_film_info_manager,access.material.film.info.manager,model_material_film_info,base.group_system,1,1,1,1
+access_product_template_punch_hole,access.product.template.punch.hole,model_product_template_punch_hole,base.group_user,1,0,0,0
+access_product_template_punch_hole_manager,access.product.template.punch.hole.manager,model_product_template_punch_hole,base.group_system,1,1,1,1
+access_product_attribute_value,access.product.attribute.value,model_product_attribute_value,,1,1,1,1
+

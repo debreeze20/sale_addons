@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+	<record id="view_partner_form_design_customer_inherit" model="ir.ui.view">
+		<field name="name">res.partner.form.design.customer.inherited</field>
+		<field name="model">res.partner</field>
+		<field name="inherit_id" ref="base.view_partner_form" />
+
+		<field name="arch" type="xml">
+            <xpath expr="//page[@name='internal_notes']" position="after">
+                <page string="Variant Attributes" name="variant_attributes">
+                    <field name="attribute_value_ids" style="pointer-events:none;" readonly="1" widget="one2many">
+                        <tree create="false" edit="false" editable="false" >
+                            <field name="attribute_id" string="Attribute" readonly="1"/>
+                            <field name="product_tmpl_id" string="Product Template" readonly="1"/>
+                            <field name="name" string="Values"  readonly="1"/>
+                            
+                        </tree>
+                    </field>
+
+                    <!-- <field name="attribute_line_ids">
+                        <tree editable="bottom" decoration-info="value_count &lt;= 1">
+                            <field name="value_count" column_invisible="True"/>
+                            <field name="attribute_id" required="True" options="{'no_create': True}"/>
+                            <field name="product_tmpl_id" required="True" options="{'no_create': True}"/>
+                            <field name="value_ids" readonly="not attribute_id or not product_tmpl_id" widget="many2many_tags" options="{'color_field': 'color', 'no_open': True, 'no_create': False, 'no_quick_create': False}"  context="{'default_attribute_id': attribute_id, 'show_attribute': False, 'default_partner_id':parent.id}"/>
+                            
+                        </tree>
+                    </field> -->
+
+                </page>
+            </xpath>
+
+        </field>
+	</record>
+</odoo>

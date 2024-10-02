@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="attribute_design_customer" model="product.attribute">
+            <field name="name">Design Customer</field>
+            <field name="display_type">select</field> 
+            <field name="create_variant">always</field>
+        </record>
+    
+    </data>
+    
+</odoo>

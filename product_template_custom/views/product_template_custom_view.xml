@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+    <record id="product_template_custom_view_form" model="ir.ui.view">
+      <field name="name">product_template_custom.view.form</field>
+      <field name="model">product.template</field>
+      <field name="inherit_id" ref="product.product_template_only_form_view"/>
+      <!-- <field name="type">form</field> -->
+      <field name="arch" type="xml">
+        <xpath expr="//field[@name='categ_id']" position="attributes">
+          <attribute name="invisible">1</attribute>
+        </xpath>
+
+        <xpath expr="//field[@name='detailed_type']" position="after">
+          <field name="categ_id"/>
+        </xpath>
+
+        <!-- Replace Attributes & Variants -->
+        <xpath expr="//page[@name='variants']" position="replace">
+          <page name="variants" string="Attributes &amp; Variants" groups="product.group_product_variant">
+            <field name="attribute_line_ids" widget="one2many" context="{'show_attribute': False}">
+              <tree string="Variants" editable="bottom" decoration-info="value_count &lt;= 1">
+                <field name="value_count" column_invisible="True"/>
+                <field name="sequence" widget="handle"/>
+                <field name="attribute_id" readonly="id"/>
+                <field name="value_ids" widget="many2many_tags"
+                  options="{'color_field': 'color', 'no_open': True, 'no_create': False, 'no_quick_create': False}"
+                  context="{'default_attribute_id': attribute_id, 'show_attribute': False, 'default_product_tmpl_id': parent.id}"
+                />
+                <button string="Configure" class="float-end btn-secondary"
+                  type="object" name="action_open_attribute_values"
+                  groups="product.group_product_variant"/>
+              </tree>
+            </field>
+            <p class="oe_grey oe_edit_only">
+              <strong>Warning</strong>: adding or deleting attributes will delete and recreate existing variants and lead to the loss of their possible customizations. </p>
+          </page>
+        </xpath>
+
+        <xpath
+          expr="//page[@name='general_information']//group/group[@name='group_standard_price']//field[@name='standard_price']"
+          position="after">
+
+          <group string="Film/Material Info" name="film_information" invisible="is_material != True">
+            <field name="density_gcm3"/>
+            <field name="thickness_micron"/>
+            <field name="film_material_width"/>
+            <field name="is_material" invisible="1"/>
+
+          </group>
+        </xpath>
+
+        <xpath expr="//field[@name='product_tag_ids']" position="before">
+          <field name="categ_film_id"
+            options="{'no_quick_create':True}"
+            context="{'default_is_active':True,'default_is_material':True}"
+            help="Density and Thickness Configuration for Product Tag in Setting Material Film (Configuration menu)"/>
+        </xpath>
+
+        <xpath expr="//field[@name='barcode']" position="attributes">
+          <attribute name="invisible">1</attribute>
+        </xpath>
+        <xpath expr="//field[@name='categ_id']" position="after">
+          <field name="barcode"/>
+        </xpath>
+        <xpath expr="//field[@name='default_code']" position="attributes">
+          <attribute name="invisible">1</attribute>
+        </xpath>
+        <xpath expr="//field[@name='barcode']" position="after">
+          <field name="default_code"/>
+        </xpath>
+        <xpath expr="//group[@name='group_lots_and_weight']" position="replace">
+          <group name="group_lots_and_weight" string="Logistics">
+            <label for="weight"/>
+            <div class="o_row" name="weight">
+              <field name="weight" class="oe_inline"/>
+              <field name="weight_uom_name"/>
+            </div>
+            <label for="weight_real"/>
+            <div class="o_row" name="weight_real">
+              <field name="weight_real" class="oe_inline"/>
+              <field name="product_uom_id_real"/>
+            </div>
+            <label for="volume"/>
+            <div class="o_row" name="volume">
+              <field name="volume" string="Volume" class="oe_inline"/>
+              <field name="volume_uom_name"/>
+            </div>
+          </group>
+        </xpath>
+
+        <!-- PRODUCT INFO -->
+        <xpath expr="//page[@name='general_information']" position="after">
+          <field name="show_product_info" invisible="1"/>
+          <page name="product_info" string="Product Info" invisible="show_product_info != True">
+            <group name="finish_goods_info" string="Finish Goods Info">
+              <group string="Bag Info" name="finish_good_information">
+                <field name="is_roll"/>
+                <field name="is_label"/>
+                <field name="bag_type"/>
+                <field name="bag_width_mm"/>
+                <field name="bag_height_mm"/>
+                <field name="bag_bottom_width_mm"/>
+                <field name="bag_open_size_width_mm"/>
+                <field name="bag_open_size_height_mm"/>
+              </group>
+              <group string="Accessories Info" name="finish_good_information">
+                <field name="coating_finishing_type"/>
+                <field name="zipper_type"/>
+                <field name="zipper_center_position_from_top_mm" invisible="1"/>
+                <field name="is_degassing_valve"/>
+                <field name="round_corner" invisible="1"/>
+                <field name="bottom_seal" invisible="1"/>
+                <field name="punch_hole_id" invisible="1"/>
+              </group>
+            </group>
+          </page>
+        </xpath>
+
+
+        <xpath expr="//page[@name='variants']//field[@name='attribute_line_ids']" position="after">
+          <p class="oe_grey">
+            <strong>Note:</strong> Attribute values cannot be saved for 'Design Customer' if the partner_id is empty. </p>
+        </xpath>
+
+
+      </field>
+    </record>
+  </data>
+</odoo>

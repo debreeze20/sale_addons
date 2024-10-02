@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+    <record id="product_normal_form_view_product_info" model="ir.ui.view">
+      <field name="name">product.product.form.product.info</field>
+      <field name="model">product.product</field>
+      <field name="inherit_id" ref="product.product_normal_form_view"/>
+      <!-- <field name="type">form</field> -->
+      <field name="arch" type="xml">
+        <!-- PRODUCT INFO -->
+        <xpath expr="//page[@name='general_information']" position="after">
+          <field name="show_product_info" invisible="1" readonly="True"/>
+          <page name="product_info" string="Product Info" invisible="show_product_info != True">
+            <group name="finish_goods_info" string="Finish Goods Info">
+              <group string="Bag Info" name="finish_good_information">
+                <field name="is_roll" readonly="True"/>
+                <field name="is_label" readonly="True"/>
+                <field name="bag_type" readonly="True"/>
+                <field name="bag_width_mm" readonly="True"/>
+                <field name="bag_height_mm" readonly="True"/>
+                <field name="bag_bottom_width_mm" readonly="True"/>
+                <field name="bag_open_size_width_mm" readonly="True"/>
+                <field name="bag_open_size_height_mm" readonly="True"/>
+              </group>
+              <group string="Accessories Info" name="finish_good_information">
+                <field name="coating_finishing_type" readonly="True"/>
+                <field name="zipper_type" readonly="True"/>
+                <field name="is_degassing_valve" readonly="True"/>
+              </group>
+            </group>
+          </page>
+        </xpath>
+      </field>
+    </record>
+  </data>
+</odoo>

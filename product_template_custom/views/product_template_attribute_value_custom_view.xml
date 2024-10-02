@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- product_template_attribute_value_custom form view -->
+    <record id="product_template_attribute_value_custom_view_form" model="ir.ui.view">
+        <field name="name">product_template_attribute_value_custom.view.form</field>
+        <field name="model">product.template.attribute.value</field>
+        <field name="inherit_id" ref="product.product_template_attribute_value_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="show_design_customer" invisible="1" />
+                <field name="partner_id" invisible="show_design_customer != True" />
+                <field name="product_tmpl_id" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_product_template_attribute_value_form_custom" model="ir.actions.act_window">
+        <field name="name">Create Attribute Value</field>
+        <field name="res_model">product.template.attribute.value</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="product_template_attribute_value_custom_view_form"/>
+        <field name="target">new</field>
+        <field name="context">{'default_attribute_id': attribute_id}</field>
+    </record>
+
+    <record id="product_template_attribute_value_custom_view_search" model="ir.ui.view">
+        <field name="name">product_template_attribute_value_custom.view.search</field>
+        <field name="model">product.template.attribute.value</field>
+        <field name="inherit_id" ref="product.product_template_attribute_value_view_search" />
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='active']" position="after">
+                <filter string="Customer" name="customer_default" domain="[('partner_id', 'in', [context.get('default_customer_id')])]" />
+                <!-- <filter string="Customer" name="customer_default" domain="[('partner_id', '=', context.get('default_customer_id'))]"/> -->
+                <field name="partner_id" string="Customer" filter_domain="[('partner_id', '=', partner_id)]"/>
+            
+            </xpath>
+
+            
+        </field>
+    </record>
+
+    <record id="action_product_template_attribute_value_custom" model="ir.actions.act_window">
+        <field name="name">Product Template Attribute Values</field>
+        <field name="res_model">product.template.attribute.value</field>
+        <field name="view_mode">tree,form,search</field>
+        <field name="view_id" ref="product_template_attribute_value_custom_view_search"/>
+        <field name="context">{}</field>
+    </record>
+    
+
+</odoo>
